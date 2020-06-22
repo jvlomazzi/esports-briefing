@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/all.min.css" rel="stylesheet">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/javascripts/all.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img class="logo-img" src="/images/alexa_logo_purple.png" alt="Alexa Logo"> <span
+                    class="logo-name">e-sports</span><span class="logo-surname">briefing</span>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="title-box title-box-jogos">
+                    <h2><b>Jogos</b></h1>
+                    <hr>
+                    <div class="button-inner-box">
+                        <a class="btn btn-success" id="adicionar_jogo" data-toggle="modal" data-target="#modalAdicionarJogo"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-dark"><i class="fa fa-cog"></i></a>
+                    </div>
+                </div>
+                <div class="about-arrow-games"></div>
+                <div class="games-area">
+                    <% for(var i = 0; i < jogos.length; i++) { %>
+                    <% if(i > 0) { %>
+                    <hr>
+                    <% } %>
+                    <div class="game-box">
+                        <p class="campeonato"><%= jogos[i].campeonato; %></p>
+                        <p class="jogo"><i class="fa fa-user-circle"></i> <%= jogos[i].time1; %> vs
+                            <%= jogos[i].time2; %><i class="fa fa-user-circle"></i></p>
+                        <span class="horario"><%= jogos[i].data_formatada; %></span>
+                    </div>
+                    <% } %>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="title-box title-box-noticias">
+                    <h2><b>Notícias</b></h1>
+                    <hr>
+                    <div class="button-inner-box">
+                        <a class="btn btn-success" id="adicionar_noticia" data-toggle="modal" data-target="#modalAdicionarNoticia"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-dark"><em class="fa fa-cog"></em></a>
+                    </div>
+                </div>
+                <% for(var i = 0; i < noticias.length; i++) { %>
+                <div class="about-area">
+                    <div class="about-arrow"></div>
+                    <div class="about-text-box">
+                        <p class="about-title"><%= noticias[i].titulo; %></p>
+                        <div class="status-inner-box">
+                            <span class="badge badge-<%= noticias[i].status ? 'success' : 'warning' %>"><%= noticias[i].status ? 'Ativo' : 'Inativo' %></span>
+                        </div>
+                        <p class="about-text">
+                            <%- noticias[i].corpo; %>
+                        </p>
+                        <div class="about-inner-box">
+                            <span><b>Data da notícia:&nbsp;</b> <%= noticias[i].data_formatada; %></span><span><b>Autor:&nbsp;</b> <%= noticias[i].autor; %></span>
+                        </div>
+                        <hr>
+                        <div class="button-inner-box">
+                            <a class="btn btn-success status_noticia" data-href="/update/status/<%= noticias[i]._id %>"><i
+                                    class="fa fa-check"></i></a>
+                            <a class="btn btn-warning editar_noticia" data-href="/noticia/get/<%= noticias[i]._id %>"><i
+                                    class="fa fa-pen" ></i></a>
+                            <a class="btn btn-danger deletar_noticia" data-href="/delete/noticia/<%= noticias[i]._id %>"><i
+                                    class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+
+        <% if(success){ %>
+            <script>
+                $(document).ready(function(){
+                    $('#toastSucesso').toast("show");
+                });
+            </script>
+        <% } %>
+
+    <!-- TOAST MENSAGEM DE SUCESSO -->
+    <div id="toastSucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="position: fixed; left: 1482px; bottom: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto">SUCESSO</strong>
+            <small>Agora</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            A ação foi realizada com sucesso!
+        </div>
+    </div>
+
+    <!-- MODAL ADD JOGO -->
+    <div class="modal fade" id="modalAdicionarJogo" tabindex="-1" role="dialog"
+        aria-labelledby="modalAdicionarJogoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+			<form id="formJogo" action="/jogo/insert" method="post">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Cadastrar jogo</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-form-label">Times:</label>
+							<!-- <input type="text" class="form-control" id="recipient-name"> -->
+							<div class="row">
+								<div class="col-md-5">
+									<select name="time1" id="time1" class="form-control">
+										<option value="">Nenhum</option>
+										<% for(var i = 0; i < times.length; i++) { %>
+										<option value="<%= times[i].nome; %>"><%= times[i].nome; %></option>
+										<% } %>
+									</select>
+								</div>
+								<div class="col-md-2 texto-versus">
+									<span>X</span>
+								</div>
+								<div class="col-md-5">
+									<select name="time2" id="time2" class="form-control">
+										<option value="">Nenhum</option>
+										<% for(var i = 0; i < times.length; i++) { %>
+										<option value="<%= times[i].nome; %>"><%= times[i].nome; %></option>
+										<% } %>
+									</select>
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="data" class="col-form-label">Data:</label>
+                            <input type="date" name="data" id="data" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="campeonato" class="col-form-label">Campeonato:</label>
+                            <input type="text" name="campeonato" id="campeonato" class="form-control">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tipo" class="col-form-label">Tipo do jogo:</label>
+                                    <select name="tipo" id="tipo" class="form-control">
+                                        <option value="Play-off">Play-off</option>
+                                        <option value="Fase de grupo">Fase de grupo</option>
+                                        <option value="Partida de exibição">Partida de exibição</option>
+                                        <option value="Oitavas de final">Oitavas de final</option>
+                                        <option value="Quartas de final">Quartas de final</option>
+                                        <option value="Semi final">Semi final</option>
+                                        <option value="Final Lower Bracket">Final Lower Bracket</option>
+                                        <option value="Grande final">Grande final</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tipo" class="col-form-label">Quantidade:</label>
+                                    <select name="quantidade" id="quantidade" class="form-control">
+                                        <option value="Melhor de 5">Melhor de 5</option>
+                                        <option value="Melhor de 3">Melhor de 3</option>
+                                        <option value="Partida única">Partida única</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<input type="submit" value="Cadastrar" class="btn btn-primary">
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+
+    <!-- MODAL ADD NOTICIA -->
+    <div class="modal fade" id="modalAdicionarNoticia" tabindex="-1" role="dialog"
+        aria-labelledby="modalAdicionarNoticiaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+			<form id="formNoticia" action="/noticia/insert" method="post">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" >Cadastrar Notícia</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+                            <label for="titulo" class="col-form-label">Título:</label>
+                            <input type="text" name="titulo" id="titulo" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="corpo" class="col-form-label">Corpo da notícia:</label>
+                            <textarea name="corpo" id="corpo" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="data" class="col-form-label">Data:</label>
+                            <input type="date" name="data" id="data" class="form-control">
+                        </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<input id="btnCadastrarNoticia" type="submit" value="Cadastrar" class="btn btn-primary">
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR AÇÃO DIRETA -->
+    <div id="modalConfirmacao" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja realizar esta ação?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Não</button>
+                    <a href="" id="botaoConfirmar" type="button" class="btn btn-success"><i class="fa fa-check"></i> Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR AÇÃO INDIRETA / INSERT FORMS -->
+    <div id="modalConfirmacaoInsert" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja realizar esta ação?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Não</button>
+                    <button id="botaoConfirmarInsert" type="button" class="btn btn-success"><i class="fa fa-check"></i> Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+</footer>
+
+</html>

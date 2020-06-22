@@ -1,0 +1,293 @@
+:root{
+    --opWhite: rgba(255, 255, 255, 0.3);
+    --opGrey: rgb(242, 242, 242);
+    --txtPrimary: rgb(57, 60, 68);
+}
+body{
+    font-family: 'Muli', sans-serif!important;
+    text-align: center;
+    background: rgb(255, 255, 255);
+    /* background: linear-gradient(80deg, rgba(152,79,6,1) 0%, rgba(106,20,128,1) 46%, rgba(10,194,243,1) 93%); */
+    color: var(--txtPrimary);
+    margin-bottom: 10px;
+}
+header{
+    /* background-color: rgb(155, 101, 208); */
+    /* border-bottom: 1px solid ; */
+    -webkit-box-shadow: 0px 2px 10px 0px rgba(50, 50, 50, 0.53);
+    -moz-box-shadow:    0px 2px 10px 0px rgba(50, 50, 50, 0.53);
+    box-shadow:         0px 2px 10px 0px rgba(50, 50, 50, 0.53);
+    margin-bottom: 50px;
+    /* text-align: center; */
+    color: rgb(78, 83, 95);
+    padding: 5px 0;
+}
+.logo-img{
+    width: 50px;
+}
+.logo-name{
+    font-family: 'Suez One', serif!important;
+    font-size: 30px;
+    margin: 0 10px;
+    font-weight: 300;
+}
+.logo-surname{
+    font-family: 'Suez One', serif!important;
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(155, 101, 208);
+}
+.logo{
+    display: flex;
+}
+.switcher-container{
+    display: flex!important;
+    width: fit-content;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    margin: 10px auto 10px auto;
+}
+.slider-button{
+    display: flex;
+    width: 42px;
+    height: 23px;
+    background-color: var(--opWhite);
+    border-radius: 10px;
+}
+.slider-button input[type="checkbox"]{
+    visibility: hidden;
+    width: 0;
+    margin: 0 0 0 2px;
+}
+.slider-button input[type="checkbox"]:checked + label{
+    right: -18px;
+    animation: switcherChecked;
+    animation-duration: .5s;
+    -webkit-animation: switcherChecked;
+    -webkit-animation-duration: .5s;
+}
+
+.slider-button input[type="checkbox"]:not(:checked) + label{
+    right: 0;
+    animation: switcherNotChecked;
+    animation-duration: .5s;
+    -webkit-animation: switcherNotChecked;
+    -webkit-animation-duration: .5s;
+}
+.circle-switcher:before{
+    color: cornflowerblue;
+}
+.circle-switcher{ 
+    position: relative;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    color: cornflowerblue;
+    width: 20px;
+    margin: 2px 0;
+    border-radius: 50%;
+    float: left;
+}
+@keyframes switcherChecked{
+    from{ right: 0 }
+    to{ right: -19px }
+}
+@keyframes switcherNotChecked{
+    from{ right: -19px }
+    to{ right: 0 }
+}
+.responsive-img{
+    max-width: 100%;
+    width: auto\9;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+#profile_picture{
+    width: 15em;
+    border-radius: 50%;
+    border: 6px solid;
+    animation: pulse infinite;
+    animation-duration: 7s;
+    -webkit-animation: pulse infinite;
+    -webkit-animation-duration: 7s;
+}
+@keyframes pulse{
+    0%{
+        border-color: red;
+    }
+    50%{
+        border-color: yellow;
+    }
+    100%{
+        border-color: red;
+    } 
+}
+.title-box{
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 25px;
+} 
+.title-box-jogos{
+    color: #FFFFFF;
+    background-color: rgba(130, 62, 196, 0.8);
+}
+.title-box-noticias{
+    color: #FFFFFF;
+    background-color: rgb(242, 242, 242);
+    /* border: 1px solid rgb(184, 184, 184); */
+}
+.title-box-noticias h2{
+    color: rgb(78, 83, 95);
+}
+.games-area{
+    /* height: 100%; */
+    background-color: rgba(130, 62, 196, 0.8);
+    border-radius: 4px;
+    padding: 15px;
+    color: #FFFFFF;
+}
+.about-arrow-games{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 22.5px 30px 22.5px;
+    margin: 20px 0 0 17px;
+    border-color:  transparent transparent rgba(130, 62, 196, 0.8) transparent;
+}
+.texto-noticias{
+    margin: 5px 0px;
+}
+.about-area{
+    display: flex;
+    flex-direction: column;
+    /* width: 70%; */
+    margin: 0 auto 40px auto;
+    color: VAR(--txtPrimary);
+}
+.about-arrow{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 22.5px 30px 22.5px;
+    margin: 0 0 0 25px;
+    border-color:  transparent transparent var(--opGrey) transparent;
+}
+.about-text-box{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--opGrey);
+    padding: 10px;
+    border-radius: 4px;
+    /* margin: 0 15px; */
+}
+
+.about-text-box a:not([href]){
+    color: #FFFFFF;
+}
+.status-inner-box{
+    margin: 0 auto 15px 15px;
+    font-size: 19px;
+}
+.about-inner-box{
+    display: flex;
+    flex-direction: row;
+    margin: 5px 15px;
+    background-color: rgb(183, 183, 183);
+    border-radius: 4px;
+    padding: 10px;
+    /* width: fit-content; */
+}
+.about-inner-box span{
+    margin-left: auto;
+}
+.button-inner-box{
+    margin: 5px 15px 5px auto;
+    width: fit-content;
+}
+.btn-info-mrg{
+    margin-right: 55px;
+}
+.about-title{
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px 15px 5px 15px;
+}
+.about-text{
+    margin: 0 15px 10px 15px;
+    text-align: justify;
+}
+.social-icons{
+    padding: 7px;
+    font-size: 30px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: .3s ease;
+}
+.social-icons:hover{
+    opacity: 0.5;
+}
+.project-img{
+    width: 128px;
+    height: 128px;
+    margin-right: 12px;
+}
+.project-card{
+    display: flex;
+    margin: 10px 0;
+    /* border: 1px solid black; */
+}
+.project-card a{
+    float: right;
+}
+.project-type{
+    color: rebeccapurple;
+}
+.project-name{
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+.project-version{
+    font-weight: 200;
+    font-size: 13px;
+    color: grey;
+}
+.project-description{
+    color: grey;
+    text-align: left;
+}
+.texto-versus{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+}
+#modalConfirmacaoInsert .modal-dialog{
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+/**************************************************
+RESPONSIVE AREA
+**************************************************/
+@media (max-width: 1024px){
+    .about-area{
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px){
+    .about-area{
+        width: 90%
+    }
+}
+
+@media (max-width: 480px){
+    .about-area{
+        width: 100%
+    }
+}
